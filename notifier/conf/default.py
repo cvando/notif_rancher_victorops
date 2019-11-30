@@ -1,8 +1,8 @@
 import os
 
-myuserName = os.getenv('USERNAME')
-mytype = os.getenv('TYPE')
-slug = os.getenv('SLUG')
-myapid = os.getenv('API_ID')
-myapik = os.getenv('API_KEY')
+victorops_username = os.getenv('VICTOROPS_USERNAME')
+victorops_type = os.getenv('VICTOROPS_TYPE')
+victorops_slug = os.getenv('VICTOROPS_victorops_slug')
+victorops_apid = os.getenv('VICTOROPS_API_ID')
+victorops_apik = os.getenv('VICTOROPS_API_KEY')
 channels = os.getenv('CHANNELS')

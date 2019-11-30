@@ -8,11 +8,11 @@ def firetovictorops(name, msg, target):
   body = {
         "summary": name+" "+target,
         "details": msg,
-        "userName": cfg.myuserName,
+        "userName": cfg.victorops_username,
         "targets": [
             {
-            "type": cfg.mytype,
-            "slug": cfg.slug
+            "type": cfg.victorops_type,
+            "victorops_slug": cfg.victorops_slug
             }
         ]
         }
@@ -24,7 +24,7 @@ def firetovictorops(name, msg, target):
 def resolvetovictorops(issuename):
   url = 'https://api.victorops.com/api-public/v1/incidents/resolve'
   body = {
-         "userName": cfg.myuserName,
+         "userName": cfg.victorops_username,
          "incidentNames": [
            issuename
          ],
@@ -35,6 +35,6 @@ def resolvetovictorops(issuename):
 
 headers = {'content-type': 'application/json',
            'Accept': 'application/json',
-           'X-VO-Api-Id': cfg.myapid,
-           'X-VO-Api-Key': cfg.myapik
+           'X-VO-Api-Id': cfg.victorops_apid,
+           'X-VO-Api-Key': cfg.victorops_apik
           }
