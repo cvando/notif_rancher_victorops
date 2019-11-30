@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notifier
+  labels:
+    app: tool
+    service: notifier
+spec:
+  selector:
+    matchLabels:
+      app: tool
+      service: notifier
+  template:
+    metadata:
+      labels:
+        app: tool
+        service: notifier
+    spec:
+      restartPolicy: Always
+      serviceAccountName: sa-nginx
+      containers:
+      - name: notifier-container
+        image: "cvando/notif_rancher_victorops:latest"
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 8080
+        resources: 
+          requests:
+            cpu: 0.1
+            memory: 100Mi
+          limits:
+            cpu: 0.1
+            memory: 100Mi
+        env:
+          - name: VICTOROPS_USERNAME
+            value: "testuser"
+          - name: VICTOROPS_TYPE
+            value: "EscalationPolicy"
+          - name: VICTOROPS_SLUG
+            value: "namepolicy"
+          - name: VICTOROPS_API_ID
+            value: "idididdi"
+          - name: VICTOROPS_API_KEY
+            value: "kkkkkk"   
+          - name: CHANNELS
+            value: "victorops" 
