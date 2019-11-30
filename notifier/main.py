@@ -9,10 +9,10 @@ class S(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/html')
         self.end_headers()
 
-    def do_GET(self):
-        logging.info("GET request "+str(self.path))
-        self._set_response()
-        self.wfile.write("ok".format(self.path).encode('utf-8'))
+    # def do_GET(self):
+    #     logging.info("GET request "+str(self.path))
+    #     self._set_response()
+    #     self.wfile.write("ok".format(self.path).encode('utf-8'))
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
