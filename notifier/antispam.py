@@ -8,7 +8,7 @@ tickets = {}
 
 def routing(post_data):
   data = json.loads(post_data)
-  if data['alerts'] is not None:
+  if data['alerts'][0] is not None:
     status = data['status']
     date = data['alerts'][0]['labels']['event_firstseen']
     name = data['alerts'][0]['labels']['alert_name']
