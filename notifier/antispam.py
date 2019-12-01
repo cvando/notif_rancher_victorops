@@ -8,13 +8,13 @@ tickets = {}
 
 def routing(post_data):
   data = json.loads(post_data)
-  if "event_firstseen" in data:
+  if data['alerts'] is not None:
     status = data['status']
     date = data['alerts'][0]['labels']['event_firstseen']
     name = data['alerts'][0]['labels']['alert_name']
     msg = data['alerts'][0]['labels']['event_message']
     target = data['alerts'][0]['labels']['target_name']
-    issue = [date, name, msg, target]
+    issue = [date, name, target]
     str = ' '.join(issue)
     varhash = hash(str)
 
@@ -32,4 +32,5 @@ def routing(post_data):
           if "victorops" in cfg.channels:
             resolvetovictorops(tickets[varhash])
           logging.info("resolve "+str)
-      del tickets[varhash]
+        if tickets[varhash] is not None:
+          del tickets[varhash]
