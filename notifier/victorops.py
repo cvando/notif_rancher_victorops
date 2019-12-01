@@ -12,7 +12,7 @@ def firetovictorops(name, msg, target):
         "targets": [
             {
             "type": cfg.victorops_type,
-            "victorops_slug": cfg.victorops_slug
+            "slug": cfg.victorops_slug
             }
         ]
         }
