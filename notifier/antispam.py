@@ -26,16 +26,13 @@ def routing(post_data):
           toresolve = 1
         logging.info("fire "+str)
 
-    if status == "resolved":
-      try:
-        tickets[varhash]
-      except NameError:
-        print("nothing to resolve")
-      else:
+    if varhash in tickets:
+      numissue = tickets[varhash]
+      if status == "resolved":
         for i in issues:
           if str == i:
             issues.remove(str)
             if "victorops" in cfg.channels:
-              resolvetovictorops(tickets[varhash])
+              resolvetovictorops(numissue)
             logging.info("resolve "+str)
           del tickets[varhash]
