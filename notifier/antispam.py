@@ -25,12 +25,12 @@ def routing(post_data):
           tickets[varhash] = firetovictorops(name, msg, target)
         logging.info("fire "+str)
 
-    if status == "resolved":
-      for i in issues:
-        if str == i:
-          issues.remove(str)
-          if "victorops" in cfg.channels:
-            resolvetovictorops(tickets[varhash])
-          logging.info("resolve "+str)
-        if tickets[varhash] is not None:
+    if tickets[varhash] is not None:
+      if status == "resolved":
+        for i in issues:
+          if str == i:
+            issues.remove(str)
+            if "victorops" in cfg.channels:
+              resolvetovictorops(tickets[varhash])
+            logging.info("resolve "+str)
           del tickets[varhash]
