@@ -3,9 +3,6 @@ import json
 import conf.default as cfg
 import datetime
 
-now = datetime.datetime.now()
-date = now.strftime("%Y-%m-%d %H:%M:%S")
-
 def citadellogin():
   url = cfg.citadel_url+'/_matrix/client/r0/login'
   body = {
@@ -24,10 +21,12 @@ def citadellogin():
             'Accept': 'application/json',
             }
   r = requests.post(url, data = json.dumps(body), headers=headers)
-  jsondata = json.loads(r.text)
-  token = jsondata['access_token']
-  print(date+" POST Login  "+str(r.status_code))
-  return (token)
+  if r.status_code == 200:
+    jsondata = json.loads(r.text)
+    token = jsondata['access_token']
+    return (token)
+  else:
+    return(0)
 
 def citadelpost(token, content):
   url = cfg.citadel_url+'/_matrix/client/r0/rooms/'+cfg.citadel_room_id+'/send/m.room.message/35'
@@ -40,7 +39,6 @@ def citadelpost(token, content):
             'authorization': 'Bearer '+token,
             }
   r = requests.put(url, data = json.dumps(body), headers=headers)
-  print(date+" PUT MESSAGE  "+str(r.status_code))
 
 def citadellogout(token):
   url = cfg.citadel_url+'/_matrix/client/r0/logout/all'
@@ -49,9 +47,14 @@ def citadellogout(token):
             'authorization': 'Bearer '+token,
             }
   r = requests.post(url, headers=headers)
-  print(date+' POST LOGOUT '+str(r.status_code))
 
 def firetocitadel(content):
+  now = datetime.datetime.now()
+  date = now.strftime("%Y-%m-%d %H:%M:%S")
   token = citadellogin()
-  citadelpost(token, content)
-  citadellogout(token)
+  if token == 0:
+    print(date+" POST Login error")
+  else:
+    citadelpost(token, content)
+    citadellogout(token)
+    print(date+" POST msg citadel ok")
