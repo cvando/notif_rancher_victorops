@@ -1,6 +1,5 @@
 import requests
 import json
-import logging
 import conf.default as cfg
 
 def firetovictorops(name, content, summary):
@@ -17,9 +16,13 @@ def firetovictorops(name, content, summary):
         ]
         }
   r = requests.post(url, data = json.dumps(body), headers=headers)
-  jsondata = json.loads(r.text)
-  issuename = jsondata['incidentNumber']
-  return (issuename)
+  if r.status_code == 200:
+    jsondata = json.loads(r.text)
+    issuename = jsondata['incidentNumber']
+    return (issuename)
+  else :
+    print("Bad victorops informations")
+    return (0)
 
 def resolvetovictorops(issuename):
   url = 'https://api.victorops.com/api-public/v1/incidents/resolve'
