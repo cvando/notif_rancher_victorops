@@ -1,9 +1,11 @@
 import logging
 import json
+import time
 from env_vars import init_env_vars
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from rancher import routing
 
+time.sleep(10)
 init_env_vars()
 
 class S(BaseHTTPRequestHandler):
