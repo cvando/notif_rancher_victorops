@@ -1,10 +1,20 @@
 import logging
 import json
 import sys
-from env_vars import init_env_vars
+import os
+from dotenv import load_dotenv
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from rancher import routing
- 
+
+path = '/env/'
+files = []
+for r, d, f in os.walk(path):
+  for file in f:
+    files.append(os.path.join(r, file))
+for f in files:
+  load_dotenv(dotenv_path=f)
+  print("Env vars loaded from "+f)
+
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
@@ -38,9 +48,6 @@ def run(server_class=HTTPServer, handler_class=S, port=8090):
 
 if __name__ == '__main__':
     from sys import argv
-    if init_env_vars() != 1:
-      sys.exit(0)
-      print("secrets Ko")
     if len(argv) == 2:
         run(port=int(argv[1]))
     else:
