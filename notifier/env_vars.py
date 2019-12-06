@@ -12,5 +12,4 @@ def init_env_vars():
   for f in files:
     load_dotenv(dotenv_path=f)
     print("Env vars loaded from "+f)
-
-    
+  return (1)
