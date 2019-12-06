@@ -1,14 +1,14 @@
-#Notifier rancher victorops citadel
+# Notifier rancher victorops citadel
 
 <br>
 
-###Description
+### Description
 
 Simple webserver waiting for json
 
 <br>
 
-###Json
+### Json
 
 json example with mandatory fields :
 
@@ -16,8 +16,7 @@ json example with mandatory fields :
 
 <br>
 
-###Configuration env vars
-
+### Configuration env vars
 
 CHANNELS = "vicotorops citadel" #output enabled if present
 
