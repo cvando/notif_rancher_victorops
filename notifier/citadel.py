@@ -1,6 +1,6 @@
 import requests
 import json
-import conf.defaulttest as cfg
+import conf.default as cfg
 import datetime
 
 now = datetime.datetime.now()
