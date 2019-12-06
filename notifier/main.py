@@ -1,7 +1,10 @@
 import logging
 import json
+from env_vars import init_env_vars
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from rancher import routing
+
+init_env_vars()
 
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
