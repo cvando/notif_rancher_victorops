@@ -4,10 +4,6 @@ import sys
 from env_vars import init_env_vars
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from rancher import routing
-
-if init_env_vars() != 1
-  sys.exit(0)
-  print("secrets Ko")
  
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
@@ -42,7 +38,9 @@ def run(server_class=HTTPServer, handler_class=S, port=8090):
 
 if __name__ == '__main__':
     from sys import argv
-
+    if init_env_vars() != 1:
+      sys.exit(0)
+      print("secrets Ko")
     if len(argv) == 2:
         run(port=int(argv[1]))
     else:
