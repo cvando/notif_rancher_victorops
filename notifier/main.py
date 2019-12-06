@@ -1,7 +1,7 @@
 import logging
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from antispam import routing
+from rancher import routing
 
 class S(BaseHTTPRequestHandler):
     def _set_response(self):

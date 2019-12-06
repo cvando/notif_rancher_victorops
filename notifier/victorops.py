@@ -3,11 +3,11 @@ import json
 import logging
 import conf.default as cfg
 
-def firetovictorops(name, msg, target):
+def firetovictorops(name, content, summary):
   url = 'https://api.victorops.com/api-public/v1/incidents'
   body = {
-        "summary": name+" "+target,
-        "details": msg,
+        "summary": summary,
+        "details": content,
         "userName": cfg.victorops_username,
         "targets": [
             {
