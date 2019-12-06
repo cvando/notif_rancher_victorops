@@ -1,13 +1,14 @@
 import logging
 import json
-import time
+import sys
 from env_vars import init_env_vars
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from rancher import routing
 
-time.sleep(30)
-init_env_vars()
-
+if init_env_vars() != 1
+  sys.exit(0)
+  print("secrets Ko")
+ 
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
