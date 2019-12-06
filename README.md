@@ -21,12 +21,19 @@ json example with mandatory fields :
 CHANNELS = "vicotorops citadel" #output enabled if present
 
 VICTOROPS_USERNAME
+
 VICTOROPS_TYPE
+
 VICTOROPS_SLUG
+
 VICTOROPS_API_ID
+
 VICTOROPS_API_KEY
 
 CITADEL_URL
+
 CITADEL_EMAIL
+
 CITADEL_PASSWORD
+
 CITADEL_ROOM_ID
