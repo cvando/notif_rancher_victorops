@@ -1,6 +1,7 @@
 FROM python:3.6-alpine
 ADD notifier /notifier
-RUN pip install requests 
+RUN pip install requests \
+                python-dotenv
 EXPOSE 8090/tcp
 
 CMD [ "python", "./notifier/main.py" ]
