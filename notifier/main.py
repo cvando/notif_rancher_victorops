@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from rancher import routing
 
-load_dotenv()
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
@@ -37,6 +36,13 @@ def run(server_class=HTTPServer, handler_class=S, port=8090):
         pass
     httpd.server_close()
     logging.info('Stopping httpd...\n')
+
+while True:
+  if "CHANNELS" not in os.environ:
+    load_dotenv()
+  else:
+    print("Env vars loaded from env_vars)
+    break
 
 if __name__ == '__main__':
     from sys import argv
