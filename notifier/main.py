@@ -3,6 +3,7 @@ import json
 import sys
 import os
 from dotenv import load_dotenv
+from env_vars import env_files
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from rancher import routing
 
@@ -39,7 +40,7 @@ def run(server_class=HTTPServer, handler_class=S, port=8090):
 
 while True:
   if "CHANNELS" not in os.environ:
-    load_dotenv()
+    env_files()
   else:
     print("Env vars loaded from env_vars")
     break
