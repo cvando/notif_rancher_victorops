@@ -32,7 +32,7 @@ def run(server_class=HTTPServer, handler_class=S, port=8090):
     logging.basicConfig(level=logging.INFO)
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
-    print('Starting httpd...\n')
+    print('Starting httpd...\n', flush=True)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     env_files()
     time.sleep(1)
   importlib.reload(cfg)
-  print("Channels configured: "+cfg.channels)
+  print("Channels configured: "+cfg.channels, flush=True)
 
   from sys import argv
   if len(argv) == 2:
