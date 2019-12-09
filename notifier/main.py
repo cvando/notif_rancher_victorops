@@ -6,15 +6,7 @@ from dotenv import load_dotenv
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from rancher import routing
 
-path = '/env/'
-files = []
-for r, d, f in os.walk(path):
-  for file in f:
-    files.append(os.path.join(r, file))
-for f in files:
-  load_dotenv(dotenv_path=f)
-  print("Env vars loaded from "+f)
-
+load_dotenv()
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
