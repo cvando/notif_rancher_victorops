@@ -41,7 +41,7 @@ while True:
   if "CHANNELS" not in os.environ:
     load_dotenv()
   else:
-    print("Env vars loaded from env_vars)
+    print("Env vars loaded from env_vars")
     break
 
 if __name__ == '__main__':
