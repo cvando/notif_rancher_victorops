@@ -1,9 +1,15 @@
 import requests
 import json
 import conf.default as cfg
+import datetime
 
 def firetovictorops(name, content, summary):
   url = 'https://api.victorops.com/api-public/v1/incidents'
+  headers = {'content-type': 'application/json',
+           'Accept': 'application/json',
+           'X-VO-Api-Id': cfg.victorops_apid,
+           'X-VO-Api-Key': cfg.victorops_apik
+          }
   body = {
         "summary": summary,
         "details": content,
@@ -19,13 +25,22 @@ def firetovictorops(name, content, summary):
   if r.status_code == 200:
     jsondata = json.loads(r.text)
     issuename = jsondata['incidentNumber']
+    now = datetime.datetime.now()
+    date = now.strftime("%Y-%m-%d %H:%M:%S")
+    print(date+" POST msg vicotorops ok")
     return (issuename)
   else :
-    print("Bad victorops informations")
+    print("Bad victorops informations:")
+    print (r.text)
     return (0)
 
 def resolvetovictorops(issuename):
   url = 'https://api.victorops.com/api-public/v1/incidents/resolve'
+  headers = {'content-type': 'application/json',
+           'Accept': 'application/json',
+           'X-VO-Api-Id': cfg.victorops_apid,
+           'X-VO-Api-Key': cfg.victorops_apik
+          }
   body = {
          "userName": cfg.victorops_username,
          "incidentNames": [
@@ -34,10 +49,10 @@ def resolvetovictorops(issuename):
          "message": "Autoresolved"
          }
   r = requests.patch(url, data = json.dumps(body), headers=headers)
-
-
-headers = {'content-type': 'application/json',
-           'Accept': 'application/json',
-           'X-VO-Api-Id': cfg.victorops_apid,
-           'X-VO-Api-Key': cfg.victorops_apik
-          }
+  if r.status_code == 200:
+    now = datetime.datetime.now()
+    date = now.strftime("%Y-%m-%d %H:%M:%S")
+    print(date+" POST msg vicotorops ok")
+  else :
+    print("Bad victorops informations:")
+    print (r.text)

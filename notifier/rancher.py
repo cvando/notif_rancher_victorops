@@ -9,7 +9,7 @@ tickets = {}
 
 def routing(post_data):
   data = json.loads(post_data)
-  if 'event_firstseen' in data:
+  if 'alerts' in data:
     status = data['status']
     date = data['alerts'][0]['labels']['event_firstseen']
     name = data['alerts'][0]['labels']['alert_name']
@@ -22,7 +22,7 @@ def routing(post_data):
     issue = [date, name, target]
     str = ' '.join(issue)
     varhash = hash(str)
-
+    
     if status == "firing":
       if str not in issues:
         issues.append(str)
@@ -30,7 +30,6 @@ def routing(post_data):
           tickets[varhash] = firetovictorops(name, content, summary)
         if "citadel" in cfg.channels:
           firetocitadel(content)
-        print("fire "+str)
 
     if status == "resolved":
       for i in issues:
@@ -43,6 +42,5 @@ def routing(post_data):
               del tickets[varhash]
           if "citadel" in cfg.channels:
             firetocitadel(content)
-          print("resolve "+str)
 
 
