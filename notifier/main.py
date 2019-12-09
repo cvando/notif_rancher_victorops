@@ -38,16 +38,16 @@ def run(server_class=HTTPServer, handler_class=S, port=8090):
     httpd.server_close()
     logging.info('Stopping httpd...\n')
 
-while True:
-  if "CHANNELS" not in os.environ:
-    env_files()
-  else:
-    print("Env vars loaded from env_vars")
-    break
-
 if __name__ == '__main__':
-    from sys import argv
-    if len(argv) == 2:
-        run(port=int(argv[1]))
+  while True:
+    if "CHANNELS" not in os.environ:
+      env_files()
     else:
-        run()
+      print("Env vars loaded from env_vars", flush=True)
+      break
+
+  from sys import argv
+  if len(argv) == 2:
+    run(port=int(argv[1]))
+  else:
+    run()
