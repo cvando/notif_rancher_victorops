@@ -9,7 +9,7 @@ tickets = {}
 
 def routing(post_data):
   data = json.loads(post_data)
-  if 'alerts' in data:
+  if 'event_firstseen' in data:
     status = data['status']
     date = data['alerts'][0]['labels']['event_firstseen']
     name = data['alerts'][0]['labels']['alert_name']
