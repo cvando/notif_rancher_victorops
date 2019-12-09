@@ -9,9 +9,8 @@ tickets = {}
 
 def routing(post_data):
   data = json.loads(post_data)
-  if 'status' and 'alerts' in data:
+  try:
     status = data['status']
-    print(data['alerts'][0]['labels'], flush=True)
     date = data['alerts'][0]['labels']['event_firstseen']
     name = data['alerts'][0]['labels']['alert_name']
     msg = data['alerts'][0]['labels']['event_message']
@@ -23,7 +22,7 @@ def routing(post_data):
     issue = [date, name, target]
     str = ' '.join(issue)
     varhash = hash(str)
-    
+
     if status == "firing":
       if str not in issues:
         issues.append(str)
@@ -31,7 +30,7 @@ def routing(post_data):
           tickets[varhash] = firetovictorops(name, content, summary)
         if "citadel" in cfg.channels:
           firetocitadel(content)
-    
+      
     if status == "resolved":
       for i in issues:
         if str == i:
@@ -43,5 +42,8 @@ def routing(post_data):
               del tickets[varhash]
           if "citadel" in cfg.channels:
             firetocitadel(content)
+
+  except KeyError:
+    print("Malformed json") 
 
 
