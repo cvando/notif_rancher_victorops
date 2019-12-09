@@ -2,6 +2,7 @@ import logging
 import json
 import sys
 import os
+import time
 from dotenv import load_dotenv
 from env_vars import env_files
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -39,12 +40,10 @@ def run(server_class=HTTPServer, handler_class=S, port=8090):
     logging.info('Stopping httpd...\n')
 
 if __name__ == '__main__':
-  while True:
-    if "CHANNELS" not in os.environ:
-      env_files()
-    else:
-      print("Env vars loaded from env_vars", flush=True)
-      break
+  while "CHANNELS" not in os.environ:
+    env_files()
+    time.sleep(1)
+  print("Env vars loaded from env_vars", flush=True)
 
   from sys import argv
   if len(argv) == 2:
