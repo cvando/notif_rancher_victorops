@@ -9,8 +9,9 @@ tickets = {}
 
 def routing(post_data):
   data = json.loads(post_data)
-  if 'alerts' in data:
+  if 'status' and 'alerts' in data:
     status = data['status']
+    print(data['alerts'][0]['labels'], flush=True)
     date = data['alerts'][0]['labels']['event_firstseen']
     name = data['alerts'][0]['labels']['alert_name']
     msg = data['alerts'][0]['labels']['event_message']
@@ -30,7 +31,7 @@ def routing(post_data):
           tickets[varhash] = firetovictorops(name, content, summary)
         if "citadel" in cfg.channels:
           firetocitadel(content)
-
+    
     if status == "resolved":
       for i in issues:
         if str == i:

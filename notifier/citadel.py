@@ -53,8 +53,8 @@ def firetocitadel(content):
   date = now.strftime("%Y-%m-%d %H:%M:%S")
   token = citadellogin()
   if token == 0:
-    print(date+" POST Login error")
+    print(date+" POST Login error", flush=True)
   else:
     citadelpost(token, content)
     citadellogout(token)
-    print(date+" POST msg citadel ok")
+    print(date+" POST msg citadel ok", flush=True)

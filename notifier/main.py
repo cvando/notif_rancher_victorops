@@ -1,4 +1,3 @@
-import logging
 import json
 import sys
 import os
@@ -16,7 +15,7 @@ class S(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        print("GET request "+str(self.path))
+        print("GET request "+str(self.path), flush=True)
         self._set_response()
         self.wfile.write("ok".format(self.path).encode('utf-8'))
 
@@ -24,12 +23,11 @@ class S(BaseHTTPRequestHandler):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         routing(post_data)
-        print("POST request "+str(self.path))
+        print("POST request "+str(self.path), flush=True)
         self._set_response()
         self.wfile.write("ok".format(self.path).encode('utf-8'))
 
 def run(server_class=HTTPServer, handler_class=S, port=8090):
-    logging.basicConfig(level=logging.INFO)
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
     print('Starting httpd...\n', flush=True)
@@ -38,10 +36,9 @@ def run(server_class=HTTPServer, handler_class=S, port=8090):
     except KeyboardInterrupt:
         pass
     httpd.server_close()
-    print('Stopping httpd...\n')
+    print('Stopping httpd...\n', flush=True)
 
 if __name__ == '__main__':
-
   while "CHANNELS" not in os.environ:
     env_files()
     time.sleep(1)

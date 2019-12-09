@@ -27,11 +27,11 @@ def firetovictorops(name, content, summary):
     issuename = jsondata['incidentNumber']
     now = datetime.datetime.now()
     date = now.strftime("%Y-%m-%d %H:%M:%S")
-    print(date+" POST msg vicotorops ok")
+    print(date+" POST msg vicotorops ok", flush=True)
     return (issuename)
   else :
-    print("Bad victorops informations:")
-    print (r.text)
+    print("Bad victorops informations:", flush=True)
+    print(r.text, flush=True)
     return (0)
 
 def resolvetovictorops(issuename):
@@ -52,7 +52,7 @@ def resolvetovictorops(issuename):
   if r.status_code == 200:
     now = datetime.datetime.now()
     date = now.strftime("%Y-%m-%d %H:%M:%S")
-    print(date+" POST msg vicotorops ok")
+    print(date+" POST msg vicotorops ok", flush=True)
   else :
-    print("Bad victorops informations:")
-    print (r.text)
+    print("Bad victorops informations:", flush=True)
+    print(r.text, flush=True)
