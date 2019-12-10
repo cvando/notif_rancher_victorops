@@ -10,22 +10,31 @@ from rancher import routing
 
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/html')
-        self.end_headers()
+        try:
+          self.send_response(200)
+          self.send_header('Content-type', 'text/html')
+          self.end_headers()
+        except KeyboardInterrupt:
+          print("Broken pipe", flush=True)
 
     def do_GET(self):
         print("GET request "+str(self.path), flush=True)
-        self._set_response()
-        self.wfile.write("ok".format(self.path).encode('utf-8'))
+        try:
+          self._set_response()
+          self.wfile.write("ok".format(self.path).encode('utf-8'))
+        except KeyboardInterrupt:
+          print("Broken pipe", flush=True)
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length)
         routing(post_data)
         print("POST request "+str(self.path), flush=True)
-        self._set_response()
-        self.wfile.write("ok".format(self.path).encode('utf-8'))
+        try:
+          self._set_response()
+          self.wfile.write("ok".format(self.path).encode('utf-8'))
+        except KeyboardInterrupt:
+          print("Broken pipe", flush=True)
 
 def run(server_class=HTTPServer, handler_class=S, port=8090):
     server_address = ('', port)
