@@ -14,7 +14,7 @@ class S(BaseHTTPRequestHandler):
           self.send_response(200)
           self.send_header('Content-type', 'text/html')
           self.end_headers()
-        except KeyboardInterrupt:
+        except:
           print("Broken pipe", flush=True)
 
     def do_GET(self):
@@ -22,7 +22,7 @@ class S(BaseHTTPRequestHandler):
         try:
           self._set_response()
           self.wfile.write("ok".format(self.path).encode('utf-8'))
-        except KeyboardInterrupt:
+        except:
           print("Broken pipe", flush=True)
 
     def do_POST(self):
@@ -33,7 +33,7 @@ class S(BaseHTTPRequestHandler):
         try:
           self._set_response()
           self.wfile.write("ok".format(self.path).encode('utf-8'))
-        except KeyboardInterrupt:
+        except:
           print("Broken pipe", flush=True)
 
 def run(server_class=HTTPServer, handler_class=S, port=8090):

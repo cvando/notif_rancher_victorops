@@ -45,6 +45,7 @@ def routing(post_data):
               firetocitadel(content)
 
   except KeyError:
-    print("Malformed json") 
+    print("Malformed json:")
+    print(data) 
 
 
