@@ -19,7 +19,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: notifier-container
-        image: "cvando/notif_rancher_victorops:latest"
+        image: "cvando/notifier_rancher_victorops-citadel:latest"
         imagePullPolicy: Always
         ports:
           - name: http
@@ -31,16 +31,33 @@ spec:
           limits:
             cpu: 0.1
             memory: 100Mi
+        volumeMounts:
+        - mountPath: /env
+          name: env-volume
+      initContainers:
+      - name: vault-retrieve
+        image: cvando/vault-init
+        imagePullPolicy: Always
         env:
-          - name: VICTOROPS_USERNAME
-            value: "user"
-          - name: VICTOROPS_TYPE
-            value: "EscalationPolicy"
-          - name: VICTOROPS_SLUG
-            value: "test"
-          - name: VICTOROPS_API_ID
-            value: "aaa"
-          - name: VICTOROPS_API_KEY
-            value: "aaaaa"   
-          - name: CHANNELS
-            value: "victorops" 
+          - name: VAULT_PATH
+            valueFrom:
+              secretKeyRef:
+                name: vault-sercret
+                key: vault_path
+          - name: VAULT_URL
+            valueFrom:
+              secretKeyRef:
+                name: vault-sercret
+                key: vault_url
+          - name: VAULT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: vault-sercret
+                key: vault_token
+        volumeMounts:
+        - mountPath: /env
+          name: env-volume
+      volumes:
+      - name: env-volume
+        emptyDir:
+          medium: Memory
