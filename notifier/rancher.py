@@ -19,7 +19,7 @@ def routing(post_data):
       namespace = data['alerts'][0]['labels']['target_namespace']
       cluster = data['alerts'][0]['labels']['cluster_name']
       summary = cluster+" "+namespace+" "+name+" "+target
-      content = "Status: "+status+"\nAlert: "+name+"\nFirst seen: "+date+"\nCluster: "+cluster+"\nNamespace: "+namespace+"\nTarget: "+name+"\nEvent: "+msg
+      content = "Status: "+status+"\nAlert: "+name+"\nFirst seen: "+date+"\nCluster: "+cluster+"\nNamespace: "+namespace+"\nTarget: "+name+" "+target+"\nEvent: "+msg
       issue = [date, name, target]
       str = ' '.join(issue)
       varhash = hash(str)
@@ -45,7 +45,7 @@ def routing(post_data):
               firetocitadel(content)
 
   except KeyError:
-    print("Malformed json:")
-    print(data) 
+    print("Malformed json:", flush=True)
+    print(data, flush=True) 
 
 
