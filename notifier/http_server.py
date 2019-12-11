@@ -5,10 +5,9 @@ from rancher import routing
 class S(BaseHTTPRequestHandler):
     def _set_response(self):
         msg = "ok"
-        self.send_header("Content-type", "text/html")
         self.send_response(200)
+        self.send_header("Content-type", "text/html")
         self.end_headers()
-        self.wfile.write(msg.encode("utf8"))
 
     def do_GET(self):
         self._set_response()

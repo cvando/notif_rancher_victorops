@@ -10,7 +10,6 @@ spec:
     app: tool
     service: notifier
   ports:
-  - port: 80
-    targetPort: 8090
+  - port: 8090
     protocol: TCP
     name: http
