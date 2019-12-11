@@ -10,5 +10,4 @@ while "CHANNELS" not in os.environ:
   time.sleep(1)
 importlib.reload(cfg)
 print("Channels configured: "+cfg.channels, flush=True)
-print("Running...", flush=True)
 run()
