@@ -14,7 +14,11 @@ class S(BaseHTTPRequestHandler):
     def do_GET(self):
         self._set_response()
         msg = "ok".encode('utf-8')
-        self.wfile.write(msg)
+        try:
+          self.wfile.write(msg)
+        except:
+          print(" ")
+                
         print("GET request "+str(self.path), flush=True)
 
     def do_POST(self):
