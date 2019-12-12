@@ -7,8 +7,7 @@ from citadel import firetocitadel
 issues = []
 tickets = {}
 
-def routing(post_data):
-  data = json.loads(post_data)
+def routing(data):
   try:
     if 'status' in data:
       status = data['status']
