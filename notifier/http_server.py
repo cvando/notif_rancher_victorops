@@ -9,4 +9,9 @@ def listen():
     response = "ok"
     routing(content)
     return response
+  
+  @route('/healthz')
+  def check(request):
+    return "Ok"
+
   run("0.0.0.0", 8090)
