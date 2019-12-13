@@ -11,12 +11,18 @@ def routing(data):
   try:
     if 'status' in data:
       status = data['status']
-      date = data['alerts'][0]['labels']['event_firstseen']
       name = data['alerts'][0]['labels']['alert_name']
-      msg = data['alerts'][0]['labels']['event_message']
-      target = data['alerts'][0]['labels']['target_name']
-      namespace = data['alerts'][0]['labels']['target_namespace']
       cluster = data['alerts'][0]['labels']['cluster_name']
+      date = data['alerts'][0]['labels']['startsAt']
+      if data['alerts'][0]['labels']['alert_type'] == 'event':
+        msg = data['alerts'][0]['labels']['event_message']
+        target = data['alerts'][0]['labels']['target_name']
+        namespace = data['alerts'][0]['labels']['target_namespace']
+      elif data['alerts'][0]['labels']['alert_type'] == 'metric':
+        msg = data['alerts'][0]['annotations']['current_value']
+        target = data['alerts'][0]['labels']['pod']
+        namespace = data['alerts'][0]['labels']['namespace']
+
       summary = cluster+" "+namespace+" "+name+" "+target
       content = "Status: "+status+"\nAlert: "+name+"\nFirst seen: "+date+"\nCluster: "+cluster+"\nNamespace: "+namespace+"\nTarget: "+name+" "+target+"\nEvent: "+msg
       issue = [date, name, target]
