@@ -18,7 +18,7 @@ def routing(data):
         msg = data['alerts'][0]['labels']['event_message']
         target = data['alerts'][0]['labels']['target_name']
         namespace = data['alerts'][0]['labels']['target_namespace']
-      elif data['alerts'][0]['labels']['alert_type'] == 'metric':
+      if data['alerts'][0]['labels']['alert_type'] == 'metric':
         msg = data['alerts'][0]['annotations']['current_value']
         target = data['alerts'][0]['labels']['pod']
         namespace = data['alerts'][0]['labels']['namespace']
