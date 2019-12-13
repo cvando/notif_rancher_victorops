@@ -13,7 +13,7 @@ def routing(data):
       status = data['status']
       name = data['alerts'][0]['labels']['alert_name']
       cluster = data['alerts'][0]['labels']['cluster_name']
-      date = data['alerts'][0]['labels']['startsAt']
+      date = data['alerts'][0]['startsAt']
       if data['alerts'][0]['labels']['alert_type'] == 'event':
         msg = data['alerts'][0]['labels']['event_message']
         target = data['alerts'][0]['labels']['target_name']
