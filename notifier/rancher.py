@@ -12,15 +12,17 @@ def routing(data):
     if 'status' in data:
       status = data['status']
       for alert in data['alerts']:
-        name = alert['labels']['alert_name']
+        # print("iter", flush=True) 
+        # print(alert['labels']['alertname'], flush=True) 
+        name = alert['labels']['alertname']
         cluster = alert['labels']['prometheus_from']
         date = alert['startsAt']
-        target = alert['labels']['description']
+        target = json.dumps(alert['annotations'])
         namespace = alert['labels']['namespace']
   
   
         summary = cluster+" "+namespace+" "+name+" "+target
-        content = "Status: "+status+"\nAlert: "+name+"\nFirst seen: "+date+"\nCluster: "+cluster+"\nNamespace: "+namespace+"\nTarget: "+name+" "+target+"\nEvent: "+msg
+        content = "Status: "+status+"\nAlert: "+name+"\nFirst seen: "+date+"\nCluster: "+cluster+"\nNamespace: "+namespace+"\nTarget: "+name+" "+target
         issue = [date, name, target]
         str = ' '.join(issue)
         varhash = hash(str)
