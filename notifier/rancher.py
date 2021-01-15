@@ -11,17 +11,13 @@ def routing(data):
   try:
     if 'status' in data:
       status = data['status']
-      name = data['alerts'][0]['labels']['alert_name']
-      cluster = data['alerts'][0]['labels']['cluster_name']
-      date = data['alerts'][0]['startsAt']
-      if data['alerts'][0]['labels']['alert_type'] == 'event':
-        msg = data['alerts'][0]['labels']['event_message']
-        target = data['alerts'][0]['labels']['target_name']
-        namespace = data['alerts'][0]['labels']['target_namespace']
-      if data['alerts'][0]['labels']['alert_type'] == 'metric':
-        msg = data['alerts'][0]['annotations']['current_value']
-        target = data['alerts'][0]['labels']['pod']
-        namespace = data['alerts'][0]['labels']['namespace']
+      for i in status:
+      name = data['alerts'][i]['labels']['alert_name']
+      cluster = data['alerts'][i]['labels']['prometheus_from']
+      date = data['alerts'][i]['startsAt']
+      target = data['alerts'][i]['labels']['description']
+      namespace = data['alerts'][i]['labels']['namespace']
+
 
       summary = cluster+" "+namespace+" "+name+" "+target
       content = "Status: "+status+"\nAlert: "+name+"\nFirst seen: "+date+"\nCluster: "+cluster+"\nNamespace: "+namespace+"\nTarget: "+name+" "+target+"\nEvent: "+msg
