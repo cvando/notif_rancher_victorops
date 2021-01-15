@@ -11,12 +11,12 @@ def routing(data):
   try:
     if 'status' in data:
       status = data['status']
-      for i in status:
-        name = data['alerts'][i]['labels']['alert_name']
-        cluster = data['alerts'][i]['labels']['prometheus_from']
-        date = data['alerts'][i]['startsAt']
-        target = data['alerts'][i]['labels']['description']
-        namespace = data['alerts'][i]['labels']['namespace']
+      for alert in data['alerts']:
+        name = alert['labels']['alert_name']
+        cluster = alert['labels']['prometheus_from']
+        date = alert['startsAt']
+        target = alert['labels']['description']
+        namespace = alert['labels']['namespace']
   
   
         summary = cluster+" "+namespace+" "+name+" "+target
